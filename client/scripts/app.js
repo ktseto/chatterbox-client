@@ -16,17 +16,21 @@ var App = {
     App.fetch(App.stopSpinner);
 
     $('.username').on('click', Friends.toggleStatus);
-    $('#rooms button').on('click', Rooms.add);
-    $('.submit').on('click', Parse.create);
+    // $('#rooms button').on('click', Rooms.add);
 
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       // examine the response from the server request:
-      console.log(data.results);
-      MessagesView.renderMessage(message);
-
+      for (var message of data.results) {
+        if (!message.username && !message.text) {
+          message.username = 'anonymous';
+          message.text = '';
+        }  
+        MessagesView.renderMessage(message);
+      }
+      console.log(data);
       callback();
     });
   },

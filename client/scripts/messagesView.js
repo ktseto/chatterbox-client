@@ -1,9 +1,13 @@
 var MessagesView = {
 
   $chats: $('#chats'),
+  $chat: $('div .username'),
 
   initialize: function() {
-    //console.log(Parse.readAll());
+    MessagesView.$chats.on('click', '.username', (elements) => {
+      console.log(elements.currentTarget);
+      $(elements.currentTarget).toggleClass('friend');
+    });
   },
 
   render: function() {
@@ -13,18 +17,10 @@ var MessagesView = {
   renderMessage: function (message) {
     $('#chats').append(MessageView.render(message));
     
+  },
+  
+  beFriends: function () {
+    console.log('hola');
   }
 };
 
-
-    /*
-    Parse.readAll((data) => {
-      // examine the response from the server request:
-      var html = '';
-      for (var i = 0; i < data.results.length; i++) {
-        html += MessageView.render()(data.results[i]);
-      }
-
-      $('#chats').append(html);
-    });
-    */

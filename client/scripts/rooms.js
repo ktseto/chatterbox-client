@@ -1,8 +1,10 @@
 var Rooms = {
-
   add: function (room) {
-    var input = window.prompt;
-    var nodeFn = _.template('<option value="NewRoom"><%- input %></option>');
-    $('select').append(nodeFn({input: input}));
+    var allRooms = $('option').map(function() { return $(this).val(); });
+    
+    if (!Object.values(allRooms).includes(room)) {
+      var compile = _.template('<option class="options" value="<%- room %>"><%- room %></option>');
+      RoomsView.$select.append(compile({room: room}));
+    }
   }
 };
